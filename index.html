@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+
+<script>
+  console.log("-->My own array");
+  function myarr() {
+    //Object.defineProperty() on top of the function
+    Object.defineProperty(this, "length", {
+      value: 0,
+      writable: true,
+      enumerable: false,
+    });
+    this.length = arguments.length;
+    for (let i = 0; i < this.length; i++) {
+      this[i] = arguments[i];
+    }
+  }
+
+  let arr = new myarr("x", "y", "z");
+  console.log(Object.values(arr));
+
+  ////my own 'push' function
+  console.log("-->My own Push() function");
+  myarr.prototype.myPush = function (newElement) {
+    let index = this.length;
+    this[index] = newElement;
+    this.length++;
+  };
+
+  arr.myPush("a");
+  arr.myPush("b");
+  console.log(Object.values(arr));
+
+  //my own 'pop' function
+  console.log("-->My own pop() function");
+  myarr.prototype.myPop = function () {
+    let index = this.length - 1;
+    delete this[index];
+    this.length--;
+  };
+
+  arr.myPop();
+  console.log(Object.values(arr));
+
+  ////my onw 'top' function
+  console.log("-->My own top() function");
+  myarr.prototype.myTop = function () {
+    let index = this.length - 1;
+    return arr[index];
+  };
+
+  console.log(arr.myTop());
+
+  ////my own 'print' function
+  console.log("-->My own print() function");
+  myarr.prototype.myPrint = function () {
+    let index = this.length;
+    let ans = "";
+    for (let i = 0; i < this.length; i++) {
+      ans += arr[i];
+    }
+    console.log(ans);
+  };
+
+  arr.myPrint();
+
+  //// my own 'printReverse' function
+  console.log("-->My own printReverse() function");
+  myarr.prototype.myPrintReverse = function () {
+    let index = this.length - 1;
+    let ans = "";
+    for (let i = index; i >= 0; i--) {
+      ans += arr[i];
+    }
+    console.log(ans);
+  };
+
+  arr.myPrintReverse();
+
+  ////my own 'size' function
+  console.log("-->My own size() function");
+  myarr.prototype.mySize = function () {
+    let index = this.length;
+    console.log(index);
+  };
+
+  arr.mySize();
+</script>
